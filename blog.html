@@ -14,15 +14,19 @@
 
 <meta name="date" content="2019-10-26" />
 
-<title>Plot - ggplot</title>
+<title>ggplot</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
@@ -107,33 +111,33 @@ summary {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 64px;
+  padding-top: 54px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 69px;
-  margin-top: -69px;
+  padding-top: 59px;
+  margin-top: -59px;
 }
 .section h2 {
-  padding-top: 69px;
-  margin-top: -69px;
+  padding-top: 59px;
+  margin-top: -59px;
 }
 .section h3 {
-  padding-top: 69px;
-  margin-top: -69px;
+  padding-top: 59px;
+  margin-top: -59px;
 }
 .section h4 {
-  padding-top: 69px;
-  margin-top: -69px;
+  padding-top: 59px;
+  margin-top: -59px;
 }
 .section h5 {
-  padding-top: 69px;
-  margin-top: -69px;
+  padding-top: 59px;
+  margin-top: -59px;
 }
 .section h6 {
-  padding-top: 69px;
-  margin-top: -69px;
+  padding-top: 59px;
+  margin-top: -59px;
 }
 .dropdown-submenu {
   position: relative;
@@ -249,7 +253,67 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
 
 
 
@@ -259,6 +323,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -271,15 +345,12 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Fei Zhang</a>
+      <a class="navbar-brand" href="index.html">Home</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
   <a href="about.html">About</a>
-</li>
-<li>
-  <a href="index.html">Home</a>
 </li>
 <li>
   <a href="books.html">Books</a>
@@ -290,12 +361,6 @@ $(document).ready(function () {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="contact.html">
-    <span class="fa fa-envelope fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="https://github.com/fei-zhang">
     <span class="fa fa-github fa-lg"></span>
      
@@ -326,30 +391,53 @@ $(document).ready(function () {
 
 <div class="fluid-row" id="header">
 
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
-<h1 class="title toc-ignore">Plot - ggplot</h1>
+
+<h1 class="title toc-ignore">ggplot</h1>
 <h4 class="author">Fei Zhang</h4>
 <h4 class="date">2019-10-26</h4>
 
 </div>
 
 
-<div id="r-markdown" class="section level1">
-<h1>R Markdown</h1>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<blockquote>
+<p>R Markdown</p>
+</blockquote>
 <p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
+<blockquote>
+<p><code>ggplot()</code></p>
+</blockquote>
+<div id="tutorial" class="section level3">
+<h3>Tutorial</h3>
+<p><a href="https://www.youtube.com/watch?v=N5gYo43oLE8" target="_blank"><img src="imgs/ggtutorial.png" alt="IMAGE ALT TEXT HERE" width="400" border="10" /></a> <br> <br></p>
+<p><code>ggplot()</code> initializes a <code>ggplot</code> object. It can be used to declare the input data frame for a graphic and to specify the set of plot aesthetics intended to be common throughout all subsequent layers unless specifically overridden. see <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/" class="uri">https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/</a></p>
+<p><code>ggplot(data = NULL, mapping = aes(), ..., environment = parent.frame())</code></p>
 </div>
-<div id="ggplot" class="section level1">
-<h1>ggplot()</h1>
-<p>ggplot() initializes a ggplot object. It can be used to declare the input data frame for a graphic and to specify the set of plot aesthetics intended to be common throughout all subsequent layers unless specifically overridden. see <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/" class="uri">https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/</a></p>
-<p>ggplot(data = NULL, mapping = aes(), …, environment = parent.frame())</p>
-<p>Arguments data: Default dataset to use for plot. If not already a data.frame, will be converted to one by fortify(). If not specified, must be supplied in each layer added to the plot.</p>
-<p>mapping: Default list of aesthetic mappings to use for plot. If not specified, must be supplied in each layer added to the plot. … Other arguments passed on to methods. Not currently used.</p>
-<p>environment: DEPRECATED. Used prior to tidy evaluation.</p>
-<p>Details ggplot() is used to construct the initial plot object, and is almost always followed by + to add component to the plot. There are three common ways to invoke ggplot: ggplot(df, aes(x, y, other aesthetics)) ggplot(df) ggplot()</p>
-<p>The first method is recommended if all layers use the same data and the same set of aesthetics, although this method can also be used to add a layer using data from another data frame. See the first example below. The second method specifies the default data frame to use for the plot, but no aesthetics are defined up front. This is useful when one data frame is used predominantly as layers are added, but the aesthetics may vary from one layer to another. The third method initializes a skeleton ggplot object which is fleshed out as layers are added. This method is useful when multiple data frames are used to produce different layers, as is often the case in complex graphics.</p>
-<p>Examples - boxplot</p>
-<p>Make a single plot with boxplots of the average medicare payments by DRG code.</p>
+<div id="arguments" class="section level2">
+<h2>Arguments</h2>
+<p><strong>data</strong>: Default dataset to use for plot. If not already a data.frame, will be converted to one by <code>fortify()</code>. If not specified, must be supplied in each layer added to the plot.</p>
+<p><strong>mapping</strong>: Default list of aesthetic mappings to use for plot. If not specified, must be supplied in each layer added to the plot. … Other arguments passed on to methods. Not currently used.</p>
+<p><strong>environment</strong>: DEPRECATED. Used prior to tidy evaluation.</p>
+</div>
+<div id="details" class="section level2">
+<h2>Details</h2>
+<p><code>ggplot()</code> is used to construct the initial plot object, and is almost always followed by + to add component to the plot. There are three common ways to invoke <code>ggplot</code>: <code>ggplot(df, aes(x, y, other aesthetics))</code> <code>ggplot(df)</code> <code>ggplot()</code></p>
+<p>The first method is recommended if all layers use the same data and the same set of aesthetics, although this method can also be used to add a layer using data from another data frame. See the first example below. The second method specifies the default data frame to use for the plot, but no aesthetics are defined up front. This is useful when one data frame is used predominantly as layers are added, but the aesthetics may vary from one layer to another. The third method initializes a skeleton <code>ggplot</code> object which is fleshed out as layers are added. This method is useful when multiple data frames are used to produce different layers, as is often the case in complex graphics.</p>
+</div>
+</div>
+<div id="example1---boxplot" class="section level1">
+<h1>Example1 - boxplot</h1>
+<p><em>Make a single plot with boxplots of the average medicare payments by DRG code:</em></p>
 <pre class="r"><code>
 # Load data
 drg &lt;- read.csv(&quot;data/DRG_data.csv&quot;)
@@ -369,21 +457,51 @@ library(purrr)
 # Make a side-by-side boxplots
 drg.new%&gt;%
   ggplot(aes(x = DRG.code, y = log10(Average.Medicare.Payments))) +
-  geom_boxplot(position = &quot;identity&quot;)+
+  geom_boxplot(position = &quot;identity&quot;, fill = &quot;white&quot;,col = &quot;black&quot;)+
   labs(title = &quot;\nBoxplots of The Average Medicare Payments \nby DRG codes\n&quot;, 
        x = &quot;DRG codes&quot;, 
        y = &quot;Average Medicare Payments&quot;)+
  # Change the format 
-  theme(axis.title.y = element_text(size = 10,  angle = 90),
-        axis.text.y  = element_text(size = 10),
+  theme(axis.title.y = element_text(size = 10,angle = 90),
+        axis.text.x  = element_text(size = 8,angle = 90),
         plot.title = element_text(hjust = 0.5))+
   scale_y_continuous(breaks = c(3,log10(5000),4,log10(50000),5),
                     labels = c(&quot;$1,000&quot;,&quot;$5,000&quot;,&quot;$10,000&quot;,&quot;$50,000&quot;,&quot;$100,000&quot;))</code></pre>
 <p><img src="blog_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 </div>
+<div id="example2---histogram" class="section level1">
+<h1>Example2 - histogram</h1>
+<pre class="r"><code>
+meat_data=read_csv(&quot;data/carcass_calculator_data.csv&quot;)
+## Parsed with column specification:
+## cols(
+##   cut = col_character(),
+##   total_weight = col_double()
+## )
+water_unit = 6.355078 #(million gallons)
+
+meat_data %&gt;%
+  mutate(number_cows =ceiling(200/meat_data$total_weight),
+         water_usage = water_unit * number_cows,
+         cut = reorder(cut, water_usage)) %&gt;%
+  ggplot(aes(x = cut)) +
+  geom_bar(mapping = aes(y = water_usage,fill=cut), stat = &quot;identity&quot;, alpha=0.7, color = &quot;white&quot;)+
+  labs(title = toupper(&quot;Water Usage of Each Cut&quot;),
+       x = &quot;&quot;,y = &quot;&quot;) +
+  theme_minimal() +
+  theme(legend.position = &quot;none&quot;,
+        plot.title = element_text(hjust = 0.5),
+        panel.grid.major =element_blank(), panel.grid.minor = element_blank(), 
+        axis.text.x = element_blank(),
+        axis.ticks.length = unit(-0.4, &quot;cm&quot;))+
+  coord_flip()</code></pre>
+<p><img src="blog_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -415,7 +533,38 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

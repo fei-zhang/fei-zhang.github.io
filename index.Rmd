@@ -1,10 +1,16 @@
 ---
+title = Fei Zhang
 ---
 
+<link rel="stylesheet" href="academicons.css"/>
 <link rel="stylesheet" href="styles.css" type="text/css">
 
-<img src="imgs/BB.jpg" style="width:90%; height: 80%; border:5px solid; margin-right: 20px" align="main">
+# Fei Zhang
+### MS of Biostatistics and Data Science
+### Weill Cornell Medicine College
 
-I like to analyze data to answer research questions and test hypotheses. Currently I am a MS student at [Weill Cornell Medicine College](https://weill.cornell.edu/). 
+<br><img src="imgs/1.JPG" style="width:30%"><br>
 
-My full resume is available [here](files/resume-Fei_Zhang.pdf).
+I obtained a bachelor's degree in statistics from [Central South University](http://www.csu.edu.cn/) in China.And I like to analyze data to answer research questions and test hypotheses. Currently I am a MS student at [Weill Cornell Medicine College](https://weill.cornell.edu/). 
+
+My full resume is available [here](files/resume-Fei Zhang.pdf).

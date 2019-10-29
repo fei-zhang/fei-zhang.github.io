@@ -1,27 +1,19 @@
 ---
-title: "books"
+title: "BOOKS"
 ---
 
-## Required Texts
-<img src="imgs/modernR.jpg" style="width:30%; height: 30%; border:5px solid; margin-right: 20px" align="left">
+### Required Texts
+_Baumer, Kaplan, Horton. Modern Data Science with R. CRC Press, 2017_
+<br><img src="imgs/modernR.jpg" style="width:15%"><br>
 
-Baumer, Kaplan, Horton. Modern Data Science with R. CRC Press, 2017.
-<br>
-<br>
-<img src="imgs/python.png" style="width:30%; height: 30%; border:5px solid; margin-right: 20px" align="left">
+_VanderPlas, Jake. Python Data Science Handbook: Essential Tools for Working with Data: Wiley, 2017. [Free](https://jakevdp.github.io/PythonDataScienceHandbook/)_
+<br><img src="imgs/python.png" style="width:15%"><br>
 
-VanderPlas, Jake. Python Data Science Handbook: Essential Tools for Working with Data: Wiley, 2017. [Free](https://jakevdp.github.io/PythonDataScienceHandbook/)
-<br>
-<br>
-<br>
-<br>
-<img src="imgs/R.png" style="width:30%; height: 30%; border:5px solid; margin-right: 20px" align="left">
+_Wickham, Grolemund. R for Data Science. O’Reilly, 2017.[Free](http://r4ds.had.co.nz)_
+<br><img src="imgs/R.jpg" style="width:15%"><br>
 
-Wickham, Grolemund. R for Data Science. O’Reilly, 2017. [Free](http://r4ds.had.co.nz)
-<br>
-<br>
-<img src="imgs/ISL.jpg" style="width:30%; height: 30%; border:5px solid; margin-right: 20px" align="left">
+_James, Gareth, et al. An introduction to statistical learning. Vol. 112. New York: springer, 2013. [Free](http://faculty.marshall.usc.edu/garethjames/ISL/)_
+<br><img src="imgs/ISL.jpg" style="width:15%"><br>
 
-James, Gareth, et al. An introduction to statistical learning. Vol. 112. New York: springer, 2013. [Free](http://faculty.marshall.usc.edu/garethjames/ISL/)
-<br>
-<br>
+
+

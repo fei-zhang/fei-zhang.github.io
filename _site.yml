@@ -1,20 +1,16 @@
-name: "Fei Zhang"
-output_dir: "."
+name: Fei Zhang's Website
+output_dir: '.'
 navbar:
-  title: "Fei Zhang"
+  title: Home
   left:
     - text: "About"
       href: about.html
-    - text: "Home"
-      href: index.html
     - text: "Books"
       href: books.html
     - text: "Blog"
       href: blog.html
       
   right:
-    - icon: fa-envelope fa-lg
-      href: contact.html
     - icon: fa-github fa-lg
       href: https://github.com/fei-zhang
     - icon: fa-twitter fa-lg
@@ -25,5 +21,8 @@ navbar:
       href: mailto:<fez4002@med.cornell.edu>
 output:
   html_document:
-    theme: paper
+    theme: lumen
+    
+
+    
   

@@ -1,51 +1,62 @@
 ---
-title: Plot - ggplot
+title: ggplot
 author: Fei Zhang
 date: '2019-10-26'
-slug: plot-ggplot
-categories:
-  - R
-tags:
-  - R Markdown
-  - plot
-subtitle: ''
-description: ''
-image: ''
+output: 
+  html_document: 
+    code_folding: show
+    toc: yes
+    toc_depth: 5
+    toc_float: true
+editor_options: 
+  chunk_output_type: inline
+   
+  
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
+knitr::opts_chunk$set(cache = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(gdata)
 ```
 
-# R Markdown
+# Introduction
+
+> R Markdown
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-# ggplot()
-ggplot() initializes a ggplot object. It can be used to declare the input data frame for a graphic and to specify the set of plot aesthetics intended to be common throughout all subsequent layers unless specifically overridden. see <https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/>
+> `ggplot()`
 
-ggplot(data = NULL, mapping = aes(), ..., environment = parent.frame())
+### Tutorial
+<a href="https://www.youtube.com/watch?v=N5gYo43oLE8" target="_blank"><img src="imgs/ggtutorial.png" alt="IMAGE ALT TEXT HERE" width="400" border="10" /></a>
+<br>
+<br>
 
-Arguments
-  data: Default dataset to use for plot. If not already a data.frame, will be converted to one by fortify(). If not specified, must be supplied in each layer added to the plot.
+`ggplot()` initializes a `ggplot` object. It can be used to declare the input data frame for a graphic and to specify the set of plot aesthetics intended to be common throughout all subsequent layers unless specifically overridden. see <https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/>
 
-  mapping: Default list of aesthetic mappings to use for plot. If not specified, must be supplied in each layer added to the plot.
+`ggplot(data = NULL, mapping = aes(), ..., environment = parent.frame())`
+
+## Arguments
+  **data**: Default dataset to use for plot. If not already a data.frame, will be converted to one by `fortify()`. If not specified, must be supplied in each layer added to the plot.
+
+  **mapping**: Default list of aesthetic mappings to use for plot. If not specified, must be supplied in each layer added to the plot.
   ...	Other arguments passed on to methods. Not currently used.
   
-  environment: DEPRECATED. Used prior to tidy evaluation.
+  **environment**: DEPRECATED. Used prior to tidy evaluation.
 
-Details
-ggplot() is used to construct the initial plot object, and is almost always followed by + to add component to the plot. There are three common ways to invoke ggplot:
-    ggplot(df, aes(x, y, other aesthetics))
-    ggplot(df)
-    ggplot()
+## Details
+`ggplot()` is used to construct the initial plot object, and is almost always followed by + to add component to the plot. There are three common ways to invoke `ggplot`:
+    `ggplot(df, aes(x, y, other aesthetics))`
+    `ggplot(df)`
+    `ggplot()`
 
-The first method is recommended if all layers use the same data and the same set of aesthetics, although this method can also be used to add a layer using data from another data frame. See the first example below. The second method specifies the default data frame to use for the plot, but no aesthetics are defined up front. This is useful when one data frame is used predominantly as layers are added, but the aesthetics may vary from one layer to another. The third method initializes a skeleton ggplot object which is fleshed out as layers are added. This method is useful when multiple data frames are used to produce different layers, as is often the case in complex graphics.
+The first method is recommended if all layers use the same data and the same set of aesthetics, although this method can also be used to add a layer using data from another data frame. See the first example below. The second method specifies the default data frame to use for the plot, but no aesthetics are defined up front. This is useful when one data frame is used predominantly as layers are added, but the aesthetics may vary from one layer to another. The third method initializes a skeleton `ggplot` object which is fleshed out as layers are added. This method is useful when multiple data frames are used to produce different layers, as is often the case in complex graphics.
 
-Examples - boxplot
+# Example1 - boxplot
 
-Make a single plot with boxplots of the average medicare payments by DRG code.
+_Make a single plot with boxplots of the average medicare payments by DRG code:_
 
 ```{r }
 
@@ -67,17 +78,43 @@ library(purrr)
 # Make a side-by-side boxplots
 drg.new%>%
   ggplot(aes(x = DRG.code, y = log10(Average.Medicare.Payments))) +
-  geom_boxplot(position = "identity")+
+  geom_boxplot(position = "identity", fill = "white",col = "black")+
   labs(title = "\nBoxplots of The Average Medicare Payments \nby DRG codes\n", 
        x = "DRG codes", 
        y = "Average Medicare Payments")+
  # Change the format 
-  theme(axis.title.y = element_text(size = 10,  angle = 90),
-        axis.text.y  = element_text(size = 10),
+  theme(axis.title.y = element_text(size = 10,angle = 90),
+        axis.text.x  = element_text(size = 8,angle = 90),
         plot.title = element_text(hjust = 0.5))+
   scale_y_continuous(breaks = c(3,log10(5000),4,log10(50000),5),
                     labels = c("$1,000","$5,000","$10,000","$50,000","$100,000"))
 
 ```
 
+
+# Example2 - histogram
+
+```{r}
+
+meat_data=read_csv("data/carcass_calculator_data.csv")
+water_unit = 6.355078 #(million gallons)
+
+meat_data %>%
+  mutate(number_cows =ceiling(200/meat_data$total_weight),
+         water_usage = water_unit * number_cows,
+         cut = reorder(cut, water_usage)) %>%
+  ggplot(aes(x = cut)) +
+  geom_bar(mapping = aes(y = water_usage,fill=cut), stat = "identity", alpha=0.7, color = "white")+
+  labs(title = toupper("Water Usage of Each Cut"),
+       x = "",y = "") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        plot.title = element_text(hjust = 0.5),
+        panel.grid.major =element_blank(), panel.grid.minor = element_blank(), 
+        axis.text.x = element_blank(),
+        axis.ticks.length = unit(-0.4, "cm"))+
+  coord_flip()
+      
+      
+```
 
