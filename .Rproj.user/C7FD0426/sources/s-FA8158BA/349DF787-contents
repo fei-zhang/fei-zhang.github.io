@@ -1,0 +1,26 @@
+<html>
+
+<head>
+<title>books</title>
+</head>
+
+<body>
+
+<p>
+## Required Texts
+
+Baumer, Kaplan, Horton. Modern Data Science with R. CRC Press, 2017.
+
+VanderPlas, Jake. Python Data Science Handbook: Essential Tools for
+Working with Data: Wiley, 2017. [Free](https://jakevdp.github.io/PythonDataScienceHandbook/)
+o Wickham, Grolemund. R for Data Science. O’Reilly, 2017. Free:
+http://r4ds.had.co.nz
+o James, Gareth, et al. An introduction to statistical learning. Vol. 112. New
+York: springer, 2013. Free: http://faculty.marshall.usc.edu/garethjames/
+ISL/
+• Lecture notes are available
+</p>
+
+
+</body>
+</html>

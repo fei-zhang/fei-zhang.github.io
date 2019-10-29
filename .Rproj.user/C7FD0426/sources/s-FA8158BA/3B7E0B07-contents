@@ -1,0 +1,29 @@
+name: "Fei Zhang"
+output_dir: "."
+navbar:
+  title: "Fei Zhang"
+  left:
+    - text: "About"
+      href: about.html
+    - text: "Home"
+      href: index.html
+    - text: "Books"
+      href: books.html
+    - text: "Blog"
+      href: blog.html
+      
+  right:
+    - icon: fa-envelope fa-lg
+      href: contact.html
+    - icon: fa-github fa-lg
+      href: https://github.com/fei-zhang
+    - icon: fa-twitter fa-lg
+      href: https://twitter.com/FeiZhan37421752
+    - icon: fa-linkedin fa-lg
+      href: https://www.linkedin.com/in/fei-zhang-598624187/
+    - icon: fa-envelope
+      href: mailto:<fez4002@med.cornell.edu>
+output:
+  html_document:
+    theme: paper
+  
