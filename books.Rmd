@@ -2,7 +2,9 @@
 title: "BOOKS"
 ---
 
-### Required Texts
+### Required Texts For Data Science I
+<br>[Weill Cornell Medicine College](https://weill.cornell.edu/)<br>
+<br>
 _Baumer, Kaplan, Horton. Modern Data Science with R. CRC Press, 2017_
 <br><img src="imgs/modernR.jpg" style="width:15%"><br>
 

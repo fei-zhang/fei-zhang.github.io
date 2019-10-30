@@ -22,6 +22,9 @@ navbar:
 output:
   html_document:
     theme: lumen
+    highlight: textmate
+    include:
+      after_body: footer.html
     
 
     

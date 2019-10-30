@@ -27,7 +27,7 @@
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
@@ -411,14 +411,11 @@ div.tocify {
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <blockquote>
-<p>R Markdown</p>
-</blockquote>
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<blockquote>
 <p><code>ggplot()</code></p>
 </blockquote>
-<div id="tutorial" class="section level3">
-<h3>Tutorial</h3>
+<div id="a-tutorial-vieo-of-ggplot-from-youtube" class="section level3">
+<h3>A Tutorial Vieo of <code>ggplot</code> from Youtube</h3>
+<p>If you want to learn more about making plots in R by using ggplot, please watch this video.</p>
 <p><a href="https://www.youtube.com/watch?v=N5gYo43oLE8" target="_blank"><img src="imgs/ggtutorial.png" alt="IMAGE ALT TEXT HERE" width="400" border="10" /></a> <br> <br></p>
 <p><code>ggplot()</code> initializes a <code>ggplot</code> object. It can be used to declare the input data frame for a graphic and to specify the set of plot aesthetics intended to be common throughout all subsequent layers unless specifically overridden. see <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/" class="uri">https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/</a></p>
 <p><code>ggplot(data = NULL, mapping = aes(), ..., environment = parent.frame())</code></p>
@@ -426,78 +423,114 @@ div.tocify {
 <div id="arguments" class="section level2">
 <h2>Arguments</h2>
 <p><strong>data</strong>: Default dataset to use for plot. If not already a data.frame, will be converted to one by <code>fortify()</code>. If not specified, must be supplied in each layer added to the plot.</p>
-<p><strong>mapping</strong>: Default list of aesthetic mappings to use for plot. If not specified, must be supplied in each layer added to the plot. … Other arguments passed on to methods. Not currently used.</p>
-<p><strong>environment</strong>: DEPRECATED. Used prior to tidy evaluation.</p>
+<p><strong>mapping</strong>: You can define x and y inside of mapping by using <code>mapping = aes(x , y)</code></p>
 </div>
 <div id="details" class="section level2">
 <h2>Details</h2>
-<p><code>ggplot()</code> is used to construct the initial plot object, and is almost always followed by + to add component to the plot. There are three common ways to invoke <code>ggplot</code>: <code>ggplot(df, aes(x, y, other aesthetics))</code> <code>ggplot(df)</code> <code>ggplot()</code></p>
-<p>The first method is recommended if all layers use the same data and the same set of aesthetics, although this method can also be used to add a layer using data from another data frame. See the first example below. The second method specifies the default data frame to use for the plot, but no aesthetics are defined up front. This is useful when one data frame is used predominantly as layers are added, but the aesthetics may vary from one layer to another. The third method initializes a skeleton <code>ggplot</code> object which is fleshed out as layers are added. This method is useful when multiple data frames are used to produce different layers, as is often the case in complex graphics.</p>
+<p><code>ggplot()</code> is used to construct the initial plot object, and is almost always followed by + to add component to the plot. There are three common ways to invoke <code>ggplot</code>:</p>
+<pre><code>`ggplot(data, aes(x, y, other aesthetics))`
+
+`ggplot(data)`
+
+`ggplot()`</code></pre>
+<p>The first method is recommended if all layers use the same data and the same set of aesthetics, although this method can also be used to add a layer using data from another data frame. The second method specifies the default data frame to use for the plot, but no aesthetics are defined up front. Therefore, you need to add aesthetics to following layers. This is useful when one data frame is used predominantly as layers are added, but the aesthetics may vary from one layer to another. The third method initializes a skeleton <code>ggplot</code> object which is fleshed out as layers are added. This method is useful when multiple data frames are used to produce different layers, as is often the case in complex graphics.</p>
 </div>
 </div>
 <div id="example1---boxplot" class="section level1">
 <h1>Example1 - boxplot</h1>
-<p><em>Make a single plot with boxplots of the average medicare payments by DRG code:</em></p>
-<pre class="r"><code>
-# Load data
-drg &lt;- read.csv(&quot;data/DRG_data.csv&quot;)
-
-# Take first three charactor from each DRG.Definition
-drg.new &lt;- drg %&gt;%
-  group_by(DRG.Definition) %&gt;%
-  mutate(DRG.code = strtrim(DRG.Definition,3))
-
-# Reorder DRG codes by median of Average Medicare Payments
-drg.new$DRG.code = with(drg.new, reorder(DRG.code, Average.Medicare.Payments, mean))
-
-# install and library all the related packages
-library(ggplot2)
-library(purrr)
-
-# Make a side-by-side boxplots
-drg.new%&gt;%
-  ggplot(aes(x = DRG.code, y = log10(Average.Medicare.Payments))) +
-  geom_boxplot(position = &quot;identity&quot;, fill = &quot;white&quot;,col = &quot;black&quot;)+
+<p><em>Let’s make a single plot with boxplots of the average medicare payments by DRG code:</em></p>
+<div id="step1" class="section level3">
+<h3>Step1</h3>
+<p><em>Loading the data, and we can view the dataset by using <code>View()</code> or <code>head()</code>.</em></p>
+<p>*<code>View()</code> can offer you a whole picture of dataset in a new window</p>
+<p>*<code>head()</code> can list first 10 rows of the dataset</p>
+<pre class="r"><code>drg &lt;- read.csv(&quot;data/DRG_data.csv&quot;)
+head(drg)
+##                             DRG.Definition Provider.Id
+## 1 039 - EXTRACRANIAL PROCEDURES W/O CC/MCC       10001
+## 2 039 - EXTRACRANIAL PROCEDURES W/O CC/MCC       10005
+## 3 039 - EXTRACRANIAL PROCEDURES W/O CC/MCC       10006
+## 4 039 - EXTRACRANIAL PROCEDURES W/O CC/MCC       10011
+## 5 039 - EXTRACRANIAL PROCEDURES W/O CC/MCC       10016
+## 6 039 - EXTRACRANIAL PROCEDURES W/O CC/MCC       10023
+##                      Provider.Name    Provider.Street.Address
+## 1 SOUTHEAST ALABAMA MEDICAL CENTER     1108 ROSS CLARK CIRCLE
+## 2    MARSHALL MEDICAL CENTER SOUTH 2505 U S HIGHWAY 431 NORTH
+## 3   ELIZA COFFEE MEMORIAL HOSPITAL         205 MARENGO STREET
+## 4                ST VINCENT&#39;S EAST 50 MEDICAL PARK EAST DRIVE
+## 5    SHELBY BAPTIST MEDICAL CENTER    1000 FIRST STREET NORTH
+## 6     BAPTIST MEDICAL CENTER SOUTH  2105 EAST SOUTH BOULEVARD
+##   Provider.City Provider.State Provider.Zip.Code
+## 1        DOTHAN             AL             36301
+## 2          BOAZ             AL             35957
+## 3      FLORENCE             AL             35631
+## 4    BIRMINGHAM             AL             35235
+## 5     ALABASTER             AL             35007
+## 6    MONTGOMERY             AL             36116
+##   Hospital.Referral.Region.Description Total.Discharges
+## 1                          AL - Dothan               91
+## 2                      AL - Birmingham               14
+## 3                      AL - Birmingham               24
+## 4                      AL - Birmingham               25
+## 5                      AL - Birmingham               18
+## 6                      AL - Montgomery               67
+##   Average.Covered.Charges Average.Total.Payments Average.Medicare.Payments
+## 1                32963.07                5777.24                   4763.73
+## 2                15131.85                5787.57                   4976.71
+## 3                37560.37                5434.95                   4453.79
+## 4                13998.28                5417.56                   4129.16
+## 5                31633.27                5658.33                   4851.44
+## 6                16920.79                6653.80                   5374.14</code></pre>
+</div>
+<div id="step2" class="section level3">
+<h3>Step2</h3>
+<p><em>To make the plot, we need to install and library package of <code>ggplot2()</code>.</em></p>
+<pre class="r"><code>library(ggplot2)</code></pre>
+</div>
+<div id="step3" class="section level3">
+<h3>Step3</h3>
+<p><em>Making a single plot with side-by-side boxplots using <code>geom_boxplot()</code>. And we can reorder DRG codes by median of Average Medicare Payments to make the boxplot orderly using <code>reorder()</code> in <code>with()</code>.</em></p>
+<pre class="r"><code>drg.new$DRG.code = with(drg.new, reorder(DRG.code, Average.Medicare.Payments, mean))
+ p1 &lt;- drg.new%&gt;%
+  ggplot(aes(x = DRG.code, 
+             y = log10(Average.Medicare.Payments)))+
+  geom_boxplot(position = &quot;identity&quot;, fill =&quot;white&quot;,col = &quot;black&quot;)
+p1</code></pre>
+<p><img src="blog_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<div id="step4" class="section level3">
+<h3>Step4</h3>
+<p><em>We can change the labels of the plot</em></p>
+<pre class="r"><code>p2 &lt;- p1+
   labs(title = &quot;\nBoxplots of The Average Medicare Payments \nby DRG codes\n&quot;, 
        x = &quot;DRG codes&quot;, 
-       y = &quot;Average Medicare Payments&quot;)+
- # Change the format 
+       y = &quot;Average Medicare Payments&quot;)
+p2</code></pre>
+<p><img src="blog_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="step5" class="section level3">
+<h3>Step5</h3>
+<p><em>We can change the format of the plot.</em></p>
+<pre class="r"><code>p3 &lt;- p2 +
   theme(axis.title.y = element_text(size = 10,angle = 90),
-        axis.text.x  = element_text(size = 8,angle = 90),
-        plot.title = element_text(hjust = 0.5))+
-  scale_y_continuous(breaks = c(3,log10(5000),4,log10(50000),5),
-                    labels = c(&quot;$1,000&quot;,&quot;$5,000&quot;,&quot;$10,000&quot;,&quot;$50,000&quot;,&quot;$100,000&quot;))</code></pre>
-<p><img src="blog_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+        axis.text.x  = element_text(size = 7,angle = 90),
+        plot.title = element_text(hjust = 0.5))
+p3</code></pre>
+<p><img src="blog_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
-<div id="example2---histogram" class="section level1">
-<h1>Example2 - histogram</h1>
-<pre class="r"><code>
-meat_data=read_csv(&quot;data/carcass_calculator_data.csv&quot;)
-## Parsed with column specification:
-## cols(
-##   cut = col_character(),
-##   total_weight = col_double()
-## )
-water_unit = 6.355078 #(million gallons)
-
-meat_data %&gt;%
-  mutate(number_cows =ceiling(200/meat_data$total_weight),
-         water_usage = water_unit * number_cows,
-         cut = reorder(cut, water_usage)) %&gt;%
-  ggplot(aes(x = cut)) +
-  geom_bar(mapping = aes(y = water_usage,fill=cut), stat = &quot;identity&quot;, alpha=0.7, color = &quot;white&quot;)+
-  labs(title = toupper(&quot;Water Usage of Each Cut&quot;),
-       x = &quot;&quot;,y = &quot;&quot;) +
-  theme_minimal() +
-  theme(legend.position = &quot;none&quot;,
-        plot.title = element_text(hjust = 0.5),
-        panel.grid.major =element_blank(), panel.grid.minor = element_blank(), 
-        axis.text.x = element_blank(),
-        axis.ticks.length = unit(-0.4, &quot;cm&quot;))+
-  coord_flip()</code></pre>
-<p><img src="blog_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<div id="step6" class="section level3">
+<h3>Step6</h3>
+<p><em>Assign values to the y axis using <code>scale_y_continuous</code> which is included in the package ‘purrr’.</em></p>
+<pre class="r"><code>library(purrr)
+  p3 + 
+    scale_y_continuous(breaks = c(3,log10(5000),4,log10(50000),5),
+                       labels = c(&quot;$1,000&quot;,&quot;$5,000&quot;,&quot;$10,000&quot;,&quot;$50,000&quot;,&quot;$100,000&quot;))</code></pre>
+<p><img src="blog_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
 </div>
 
+
+<p>Copyright &copy; 2019 Fei Zhang, All rights reserved.</p>
 
 
 </div>
