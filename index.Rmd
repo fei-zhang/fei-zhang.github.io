@@ -11,6 +11,6 @@ title = Fei Zhang
 
 <br><img src="imgs/1.JPG" style="width:30%"><br>
 
-I obtained a bachelor's degree in statistics from [Central South University](http://www.csu.edu.cn/) in China.And I like to analyze data to answer research questions and test hypotheses. Currently I am a MS student at [Weill Cornell Medicine College](https://weill.cornell.edu/). 
+I obtained a bachelor's degree in statistics from [Central South University](http://www.csu.edu.cn/) in China. And I like to analyze data to answer research questions and test hypotheses. Currently I am a MS student at [Weill Cornell Medicine College](https://weill.cornell.edu/). 
 
 My full resume is available [here](files/resume-Fei Zhang.pdf).
